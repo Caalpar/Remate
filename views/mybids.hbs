@@ -1,0 +1,263 @@
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    .img-modal {
+        padding: 1rem 0 0 1rem;
+        width: 40%;
+        height: auto;
+    }
+
+    .inp-offer {
+        left: 12%;
+        top: 7vh;
+    }
+
+    .data-modal-content {
+        float: right;
+        width: 35%;
+        padding-top: 3rem;
+        color: white;
+        font-size: 1.3rem;
+
+    }
+
+    .data-modal-content div {
+        padding-bottom: 0.3rem;
+    }
+
+    .data-modal {
+        width: 100%;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #616161f8;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        border-radius: 10px;
+        width: 95%;
+        height: 60vh;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+        color: white;
+    }
+
+    hr {
+        margin-top: 3vh;
+        width: 100%;
+        opacity: 0.2;
+    }
+
+    /* Add Animation */
+    @-webkit-keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+
+    /* The Close Button */
+    .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        padding: 1rem;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: red;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<div>
+    <input onkeyup="filterCads(this)" style="width: 80%;margin:5% 10%;padding:3%" type="text" placeholder="Buscar..."
+        name="search2">
+</div>
+<div>
+    {{#each products}}
+    <div class="card">
+        <div class="mybids-text-content">
+            <img style="width: 70%; height: auto; margin: 1rem 15%;" src="{{url_img}}" alt="">
+            {{#if win}}
+            <div class="mybids-text win">
+                OFERTA LIDER
+            </div>
+            {{else}}
+            <div class="mybids-text lost">
+                OFERTA SUPERADA
+            </div>
+            {{/if}}
+        </div>
+        <div class="content-product" style="padding:0 10%;">
+            <h3>LOTE {{n_lote}}</h3>
+            <p>{{description}}</p>
+            <p><span> ${{price.close}}</span><span>${{price.open}}</span></p>
+            <p>OFERTAS:{{offers}}</p>
+            <hr>
+            <div style="padding: 4vw;">
+                <img class="reloj" src="/img/clock_2.png" alt=""><samp class="clock"
+                    text='{{intial_day}}@{{final_day}}@{{now}}@{{win}}'></samp>
+            </div>
+            <input type="button" value="Ofertar"
+                onclick='Bid("{{_id}}",{{price.close}},"{{description}}",{{n_lote}},"{{url_img}}",{{offers}})'>
+        </div>
+    </div>
+    {{/each}}
+    <div id='home-modal' class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="data-modal">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        let cards = undefined
+
+        setTimeout(() => {
+
+            cards = document.getElementsByClassName('card')
+
+        }, 100)
+
+
+
+        function filterCads(input) {
+            if (typeof cards != 'undfined') {
+
+                let filter = input.value.toUpperCase()
+
+                for (let index = 0; index < cards.length; index++) {
+                    const car = cards[index];
+                    let text = car.innerHTML.toUpperCase()
+                    if (text.indexOf(filter) > -1) {
+                        car.style.display = "";
+                    } else {
+                        car.style.display = "none";
+                    }
+                }
+            }
+        }
+
+        var modal = document.getElementById("home-modal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+        window.addEventListener('load', (event) => {
+
+            let times = document.getElementsByClassName('clock')
+
+            for (let index = 0; index < times.length; index++) {
+                const t = times[index];
+                t_arr = t.getAttribute("text").split('@')
+                CountDown(t, t_arr[0], t_arr[1], t_arr[2], t_arr[3])
+            }
+
+        })
+
+        function Bid(_id, price, description, n_lote, url_img, offers) {
+            modal.style.display = "block";
+
+            let user_ele = document.getElementsByName('user-name')
+            let user_id = undefined
+            let text_url = '/login'
+            let text_method = 'GET'
+
+            if (user_ele.length > 0) {
+                user_id = user_ele[0].id
+                text_url = '/product/set-buyer'
+                text_method = 'POST'
+            }
+
+
+
+
+            let data_modal = `
+      <img class="img-modal"src='${url_img}'></img>
+      <div class="data-modal-content">
+        <div>Lote:${n_lote}</div>
+        <div>${description}</div>
+        <div>$:${price}</div>
+      </div>
+      <hr/>
+      <h3 style="padding-left: 3.5rem;padding-top: 1rem;">Ofertar</h3>
+      <form action="${text_url}" method="${text_method}">
+      <label  class='inp-offer'>$</label>
+      <input style="display:none" type="text" name="id" required value=${_id}>
+      <input style="display:none" type="text" name="id_buyer" required value=${user_id}>
+      <input type="number" placeholder="Ofertar" name="offers_price" required value=${price + 50}>
+      <input type="submit" value="Ofertar">
+      </form>
+      
+  `
+            modal.childNodes[1].childNodes[3].innerHTML = (data_modal)
+        }
+
+
+    </script>

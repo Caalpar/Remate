@@ -1,0 +1,24 @@
+<form action="/product/create" method="POST" enctype="multipart/form-data">
+    <input type="text" name="description" placeholder="descripcion">
+    <input type="number" name="price" placeholder="precio inicial">
+    <input type="number" name="n_lote" placeholder="lote">   
+    <input type="file" onchange="onChange(this)" name="url_img" id='url_img' multiple>
+
+    <label for="">FECHA DE INICIO</label>
+    <input type="datetime-local" name="intial_day" placeholder="inicia">
+    <label for="">FECHA DE FINAL</label>
+    <input type="datetime-local" name="final_day" placeholder="finaliza">
+    <div style="margin: 1rem 0 3rem;">
+            <label for="url_img" name="url_img" class="label-file"><img src="/img/upload.svg" alt=""> <span id ='lbl-flie'>CARGAR IMAGE</span></label>
+    </div>
+    <input type="submit" value="Agregar Producto">
+</form>
+
+<script>
+    function onChange(f)
+    {
+        file = f.files[0]
+        label = document.getElementById('lbl-flie')
+        label.innerHTML = file.name.replace(/ /g, '')
+    }
+</script>

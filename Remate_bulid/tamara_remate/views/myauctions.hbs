@@ -1,0 +1,28 @@
+<div>
+    <input style="width: 80%;margin:5% 10%;padding:3%" type="text" placeholder="Buscar..." name="search2">
+</div>
+{{#each product_and_client}}
+<div class="card" style="text-align: left; width: 80%; margin:3vh auto; padding: 2%;">
+    {{#if active}}
+    {{#with client}}
+    <h2>CLIENTE</h2>
+    <h3>{{first_name}} {{last_name}}</h3>
+    <h4>telefóno: {{phone}}</h4>
+    {{/with}}
+    {{else}}
+    <h2>SIN OFERTAS</h2>
+    {{/if}}
+    {{#with product}}
+    <hr style="opacity: 0.2; margin: 2%;">
+    <h2>PRODUCTO</h2>
+    <div style="text-align: center; margin: 2%;">
+        <img style="width: 80%; height: auto;" src="{{url_img}}" alt="">
+    </div>
+    <h4>Lote: {{n_lote}}</h4>
+    <h3>descripcion:{{description}}</h3>
+    <h4>precio actual:{{price.close}}</h4>
+    <h4>ofertas totales:{{offers}}</h4>
+    {{/with}}
+
+</div>
+{{/each}}

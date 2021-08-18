@@ -1,0 +1,60 @@
+<div>
+    <input onkeyup="filterCads(this)" style="width: 80%;margin:5% 10%;padding:3%" type="text" placeholder="Buscar..."
+        name="search2">
+</div>
+{{#each product_and_client}}
+<div class="card" style="text-align: left; width: 80%; margin:3vh auto; padding: 2%;">
+    {{#if active}}
+    {{#with client}}
+    <h2>CLIENTE</h2>
+    <h3>{{first_name}} {{last_name}}</h3>
+    <h4>telefóno: {{phone}}</h4>
+    {{/with}}
+    {{else}}
+    <h2>SIN OFERTAS</h2>
+    {{/if}}
+    {{#with product}}
+    <hr style="opacity: 0.2; margin: 2%;">
+    <h2>PRODUCTO</h2>
+    <div style="text-align: center; margin: 2%;">
+        <img style="width: 80%; height: auto;" src="{{url_img.[0]}}" alt="">
+    </div>
+    <h4>Lote: {{n_lote}}</h4>
+    <h3>descripcion:{{description}}</h3>
+    <h4>precio actual:{{price.close}}</h4>
+    <h4>ofertas totales:{{offers}}</h4>
+    {{/with}}
+
+</div>
+{{/each}}
+
+<script>
+
+    let cards = undefined
+
+    setTimeout(() => {
+
+        cards = document.getElementsByClassName('card')
+
+    }, 100)
+
+
+
+    function filterCads(input) {
+        if (typeof cards != 'undfined') {
+
+            let filter = input.value.toUpperCase()
+
+            for (let index = 0; index < cards.length; index++) {
+                const car = cards[index];
+                let text = car.innerHTML.toUpperCase()
+                if (text.indexOf(filter) > -1) {
+                    car.style.display = "";
+                } else {
+                    car.style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>

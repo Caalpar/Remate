@@ -1,0 +1,74 @@
+<div class="navbar">
+    <div class="close-btn-menu-nav" onclick=" OpenMenuSesion(this,'menu-nav','40')">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="li-inicio">
+        <ul>
+            <li style="float: left;">
+                <a href="/">INICIO</a>
+            </li>
+            {{#unless notAuth}}
+            <li name='user-name' id='{{userID}}' style="float: left;">
+                <a>{{userText}}</a>
+            </li>
+            {{/unless}}
+        </ul>
+    </div>
+    <div class="menu-nav sidenav" id="menu-nav">
+        <ul>
+            <li style="float: left;">
+                <a href="/">INICIO</a>
+            </li>
+            {{#if notAuth}}
+
+            <li class="login" name='btn-login' style="float: left;">
+                <a href="/login">INICIAR SESSION</a>
+            </li>
+            <li class="sigin" name='btn-singin' style="float: left;">
+                <a href="/singin">CREAR CUENTA</a>
+            </li>
+            {{else}}
+            <li name='btn-logoff' style="float: left;">
+                <a href="/user/logoff">CERRAR SESSION</a>
+            </li>
+
+            <li name='btn-my-bids' style="float: left;">
+                <a href="/product/get-buyer-products">MIS OFERTAS</a>
+            </li>
+            {{#if admin}}
+            <li name='btn-create-product' style="float: left;">
+                <a href="/product">AGREGAR PRODUCTO</a>
+            </li>
+            <li name='btn-create-product' style="float: left;">
+                <a href="/product/get-all-products-with-clints">LISTA DE OFERTAS</a>
+            </li>
+            {{/if}}
+
+
+            <li name='user-name' id='{{userID}}' style="float: left;">
+                <a>{{userText}}</a>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
+</div>
+
+<script>
+
+    window.addEventListener('load',(event)=>{
+        let li_inicio = document.getElementById('li-inicio')
+        let menu_nav = document.getElementById('menu-nav')
+        li_inicio.offsetTop=menu_nav.offsetTop
+
+    })  
+
+    function OpenMenuSesion(x = null, open, porcent) {
+
+        if (x != null)
+            x.classList.toggle("change");
+        let menu_nav = document.getElementsByClassName(open)
+        menu_nav[0].classList.toggle('open-' + porcent)
+    }
+</script>

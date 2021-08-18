@@ -1,0 +1,412 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+[class*=h-title]
+{
+  font-weight: 300;
+}
+.clock{
+  padding: 0.3rem;
+  font-size: 1.5rem;
+}
+.close-btn-menu-nav{   
+  width: 4vw;
+  float: right;
+  height: 2vw;
+  padding: 1.9vh 2vw;
+}
+.close-btn-menu-nav div{
+  background-color: white;
+  transition: 0.4s;
+  margin-bottom: 1vw;
+  height: 0.5vw;
+  width: 4vw;
+} 
+
+
+.change div:nth-child(1){
+  height: 1vw;
+  -webkit-transform: translate(0, 1.5vw) rotate(45deg); 
+  transform: translate(0, 1.5vw) rotate(45deg);
+}
+.change div:nth-child(2){
+  opacity: 0;
+}
+.change div:nth-child(3){
+  height: 1vw;
+  -webkit-transform: translate(0,-2vw) rotate(-45deg); 
+  transform: translate(0,-2vw) rotate(-45deg); 
+}
+
+.menu-nav{ 
+  background-color: #003d3f;     
+}
+
+.sidenav{
+  border-radius: 0 0 10px 0;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  left: 0; 
+  transition: width 0.2s;  
+  overflow-x: hidden;
+}
+
+
+[class*="open-"] #sesion_login a, [class*="open-"] #sesion_user:not(.no-display), [class*="open-"] #sesion_user a {
+  display: block;
+}
+
+.open-40
+{
+  width: 40vw;
+}
+
+.open-100
+{
+  width: 100vw;
+}
+
+.card {
+  margin: 2%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  margin-left: 5%;
+  width: 90%;
+  padding-bottom: 2%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.h-title
+{
+  font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+  color: #00633f;
+  font-size: 4em;
+}
+
+.h-title-2
+{
+  font-family: 'Brush Script MT', cursive;
+  color: white;
+  position: relative;
+  left: 5%;
+  background-color: goldenrod;
+  font-size: 4em;
+  width: 46%;
+  padding: 2% 0;
+}
+
+.h-title-3
+{
+  color: #003d3f;
+  position: relative;
+  left: 53%;
+  top:-50%;
+  width: 50%;
+}
+.tag-finished{
+  color: red;
+  border: solid 3px red;
+  border-radius: 10px;
+  padding: 2% !important;
+}
+
+.h-conteiner{
+  border: solid 1px goldenrod;
+  margin: auto;
+  width: 50%;
+  font-size: 2.5vw ;
+  height: 8em;
+}
+.navbar{
+  background-color: #003d3f;
+  color: white;
+  float: left;
+  width: 100%;
+ 
+}
+
+
+
+.navbar ul{width: 58%;}
+.navbar ul, .navbar li{display:inline;}
+
+.navbar .session-content,.navbar .session-content li{
+  float: right;
+}
+
+
+.navbar li{
+
+  padding: 1.5vh 4vw;
+  width: 32vw;
+}
+
+
+.navbar ul li:hover
+{
+  background-color: white;
+  color:#003d3f;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.navbar ul li a:hover{
+  color:#003d3f;
+}
+
+
+.navbar ul li:active{
+  background-color: white;
+  color:#003d3f;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.navbar ul li a:active{
+  color:#003d3f;
+}
+
+
+.navbar li a{
+  color:white;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+
+.content-product p, .content-product h3{
+  padding:2% 0;
+}
+
+.content-product p:nth-child(even)
+{
+  color: gray;
+}
+
+.reloj{
+  background: transparent;
+  width: 5vw;
+  height: auto;
+}
+
+.mybids-text-content
+{
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.mybids-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 1px red;
+  border-radius: 10px;
+  padding: 2%;
+  background-color: rgba(255, 255, 255, 0.801);
+}
+
+.win{
+  color: green;
+  border-color:green;
+
+}
+.lost{
+  color: red;
+}
+
+.content-product span
+{
+  padding: 0 2%;
+}
+
+.content-product span:nth-child(2)
+{
+  text-decoration: line-through;
+}
+
+/* Full-width input fields */
+input{
+  width: 70%;
+  padding: 5%;
+  margin:5% 15% 0 ;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+input[type=submit] {
+  color: white;
+  font-size: 1.6em;
+  background-color:#003d3f; 
+  margin-bottom: 1em;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.check-content {
+  display: block;
+  position: relative;
+  top: 0;
+  padding-left: 5%;
+  margin-bottom: 10vh;
+  margin-right: 27vw;
+  cursor: pointer;
+  font-size: 3.4vw;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4vw;
+  width: 4vw;
+  background-color: #eee;
+}
+
+.check-content:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.check-content input:checked ~ .checkmark {
+  background-color: #003d3f;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.check-content input:checked ~ .checkmark:after {
+  display: block;
+}
+
+
+.check-content .checkmark:after {
+  left: 1.5vw;
+  top: -0.6vw;
+  width: 1vw;
+  height: 3vw;
+  border: solid white;
+  border-width: 0 0.6vw 0.6vw 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+
+input[type=file] {
+  display: none;
+}
+.label-file{
+  border: solid 1px rgba(77, 77, 77, 0.493);
+  padding: 1rem; 
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(81, 81, 243);
+}
+.label-file img{
+  width: 1.2rem;
+  height: auto;
+  padding: 0 0.5rem;
+  fill: white;
+  position: relative;
+  top: 0.4vh;
+}
+
+
+label{
+  position: relative;
+  left: 15vw;
+  top: 2.5vh;
+}
+/* Set a style for all buttons */
+button {
+  position: relative;
+  background-color: #003d3f;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+    margin: auto;
+    width: 20%;
+    padding: 10px;
+    padding-top: 10%;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-2-5 {width: 20%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+[class*="font-"] {
+  font-family: sans-serif;
+}
+
+.user
+{
+  display: none !important;
+}
+
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 500px) {
+    .container {
+        width: 80%;
+      }
+      .col-4 {width: 100%;}
+      .col-2 {width: 80%;}
+      
+}
