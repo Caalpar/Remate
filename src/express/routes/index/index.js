@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
                 p.win = false
         });
 
-
+       products = products.reverse()
 
         res.render('home', { products, notAuth, userText, admin, userID })
     })

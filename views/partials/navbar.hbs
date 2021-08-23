@@ -31,7 +31,7 @@
             </li>
             {{else}}
             <li name='btn-logoff' style="float: left;">
-                <a href="/user/logoff">CERRAR SESSION</a>
+                <a href="/user/logoff" onclick="BorrarChche()">CERRAR SESSION</a>
             </li>
 
             <li name='btn-my-bids' style="float: left;">
@@ -56,6 +56,11 @@
 </div>
 
 <script>
+
+
+    function BorrarChche(){
+        localStorage.clear()
+    }
 
     let li_inicio = document.getElementById('li-inicio')
     let menu_nav = document.getElementById('menu-nav')

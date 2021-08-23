@@ -1,5 +1,5 @@
 <style>
-    [class*="mySlides-"]{
+    [class*="mySlides-"] {
         display: none
     }
 
@@ -10,13 +10,13 @@
 
     .prev,
     .next {
-        
+
         position: relative;
         top: 6rem;
         cursor: pointer;
         width: auto;
-        padding:3%;
-        
+        padding: 3%;
+
         color: white;
         font-weight: bold;
         font-size: 18px;
@@ -24,10 +24,11 @@
         user-select: none;
     }
 
-    .prev{
-       right: -5%;
-       border-radius: 0 3px 3px 0;
+    .prev {
+        right: -5%;
+        border-radius: 0 3px 3px 0;
     }
+
     /* Position the "next button" to the right */
     .next {
         left: 76.7%;
@@ -164,7 +165,8 @@
 </style>
 
 <div>
-        <input onkeyup="filterCads(this)" style="width: 80%;margin:5% 10%;padding:3%" type="text" placeholder="Buscar..."name="search2">
+    <input onkeyup="filterCads(this)" style="width: 80%;margin:5% 10%;padding:3%" type="text" placeholder="Buscar..."
+        name="search2">
 </div>
 <div>
     {{#each products}}
@@ -210,21 +212,16 @@
         let slideIndexs = [];
 
 
-        function plusSlides(n,id,index) {
-             let slides = document.getElementsByClassName("mySlides-"+id);
-            let new_index = slideIndexs[parseInt(slides[0].firstElementChild.innerHTML.split('/')[0])-1] += parseInt(n)
-            showSlides(new_index,id,parseInt(slides[0].firstElementChild.innerHTML.split('/')[0])-1);
+        function plusSlides(n, id, index) {
+            let slides = document.getElementsByClassName("mySlides-" + id);
+            let new_index = slideIndexs[parseInt(slides[0].firstElementChild.innerHTML.split('/')[0]) - 1] += parseInt(n)
+            showSlides(new_index, id, parseInt(slides[0].firstElementChild.innerHTML.split('/')[0]) - 1);
         }
 
-        function showSlides(n,id,index) {
+        function showSlides(n, id, index) {
             let i;
-            let id_mySlides = "mySlides-"+id
-            let slides = document.getElementsByClassName("mySlides-"+id);
-
-                
-          
-
-
+            let id_mySlides = "mySlides-" + id
+            let slides = document.getElementsByClassName("mySlides-" + id);
 
             if (n > slides.length) slideIndexs[index] = 1
 
@@ -259,23 +256,15 @@
 
         window.addEventListener('load', (event) => {
 
-             let myAllSlides = document.querySelectorAll("[class*=mySlides-]")
-          
-        
-            for(let i=0;i<myAllSlides.length;i++)
-            {
-                slideIndexs.push(1)                
+            let myAllSlides = document.querySelectorAll("[class*=mySlides-]")
+
+            for (let i = 0; i < myAllSlides.length; i++) {
+                slideIndexs.push(1)
             }
 
-            for(let i=0;i<myAllSlides.length;i++)
-            {
-                console.log(myAllSlides[i].className.split('-')[1])
-                   showSlides(slideIndexs[i],myAllSlides[i].className.split('-')[1],i);                  
+            for (let i = 0; i < myAllSlides.length; i++) {
+                showSlides(slideIndexs[i], myAllSlides[i].className.split('-')[1], i);
             }
-
-           
-
-           
 
             let times = document.getElementsByClassName('clock')
 
@@ -284,6 +273,31 @@
                 t_arr = t.getAttribute("text").split('@')
                 CountDown(t, t_arr[0], t_arr[1], t_arr[2], t_arr[3])
             }
+
+            let user = localStorage.getItem('user')
+            let password = localStorage.getItem('password')
+
+            if (user && password) {
+
+                let myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                
+                let raw = JSON.stringify({
+                    user,
+                    password
+                });
+
+                let requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                };
+
+                fetch("user/login", requestOptions)
+                    .catch(error => console.log('error', error));
+            }
+
 
         })
 
@@ -325,33 +339,33 @@
             modal.childNodes[1].childNodes[3].innerHTML = (data_modal)
         }
 
-        
-    let cards = undefined
 
-    setTimeout(() => {
+        let cards = undefined
 
-        cards = document.getElementsByClassName('card')
+        setTimeout(() => {
 
-    }, 100)
+            cards = document.getElementsByClassName('card')
+
+        }, 100)
 
 
 
-    function filterCads(input) {
-        if (typeof cards != 'undfined') {
+        function filterCads(input) {
+            if (typeof cards != 'undfined') {
 
-            let filter = input.value.toUpperCase()
+                let filter = input.value.toUpperCase()
 
-            for (let index = 0; index < cards.length; index++) {
-                const car = cards[index];
-                let text = car.innerHTML.toUpperCase()
-                if (text.indexOf(filter) > -1) {
-                    car.style.display = "";
-                } else {
-                    car.style.display = "none";
+                for (let index = 0; index < cards.length; index++) {
+                    const car = cards[index];
+                    let text = car.innerHTML.toUpperCase()
+                    if (text.indexOf(filter) > -1) {
+                        car.style.display = "";
+                    } else {
+                        car.style.display = "none";
+                    }
                 }
             }
         }
-    }
 
     </script>
 </div>

@@ -191,8 +191,12 @@ module.exports.GetAllProductsWithClients = (req,res) =>
                 if (typeof req.session.admin != 'undefined')
                 admin = req.session.admin
 
+                product_and_client = product_and_client.reverse()   
 
+                if(admin)
                 res.render('myauctions',{product_and_client,notAuth,userText,userID,admin})
+                else
+                res.redirect('/')
             }
         })
     }).lean()

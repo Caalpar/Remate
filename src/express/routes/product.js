@@ -3,16 +3,19 @@ const {CreateProduct,SetBuyer,GetAllProductsFromClient,GetAllProductsWithClients
 const {GetTimeNow,SendError} = require('../../tools/tools')
 const upload = require('../../multer/index')
 
-const {CheckDate} = require('../helpers/db-products-validates')
+const {CheckProduct} = require('../helpers/db-products-validates')
 const { validarCampos } = require('../middlewares/validar-campos')
 const { check } = require('express-validator');
 
 //VALIDACIONES
 
-// const productosValidator = [
-//   check('description').custom((c,{req})=>CheckDate(req.body.intial_day,req.body.final_day)), 
-//   validarCampos
-// ]
+
+ const productosValidator = [
+   check('id','no se ha encontrardo el producto').custom(CheckProduct), 
+   check('id_buyer','el id no es valido').isMongoId(), 
+   check('offers_price','el oferta tiene que ser un valor numerico').isNumeric(), 
+   validarCampos
+ ]
 
 
 // RUTAS
@@ -35,8 +38,6 @@ routes.post('/create', upload.array('url_img',5), (req, res) => {
 
   
   let {description, price, n_lote, intial_day, final_day} = req.body  
-
-  console.log('intial_day:'+intial_day)
 
   let ini_date = new Date(intial_day)
   let fin_date = new Date(final_day)
@@ -72,7 +73,7 @@ routes.post('/set-finished', (req, res) => {
   SetFinished(id,res)
 })
 
-routes.post('/set-buyer', (req, res) => {
+routes.post('/set-buyer',productosValidator, (req, res) => {
   let {id,id_buyer,offers_price} = req.body   
   SetBuyer(id,id_buyer,offers_price,res)
 })
@@ -88,35 +89,45 @@ routes.get('/get-buyer-products', (req, res) => {
   let userID = ''
   let admin = false
 
-  if (typeof req.session.userID != 'undefined')
-  userID = req.session.userID
-
   if (typeof req.session.notAuth != 'undefined')
   notAuth = req.session.notAuth
   else
   notAuth = true
 
-  if (typeof req.session.userText != 'undefined')
-  userText = req.session.userText
-
   if (typeof req.session.admin != 'undefined')
   admin = req.session.admin
 
+  if (typeof req.session.userID != 'undefined' && typeof req.session.userText != 'undefined')
 
-  GetAllProductsFromClient(userID).then(products=>{
-    products.forEach(p => {
-      p.now = GetTimeNow()
+  {
+    userID = req.session.userID
+    userText = req.session.userText
 
-      if(p.id_buyer[p.id_buyer.length-1]==userID)
-      p.win = true
-      else
-      p.win = false
+    GetAllProductsFromClient(userID).then(prod=>{
+      prod.forEach(p => {
+        p.now = GetTimeNow()
+  
+        if(p.id_buyer[p.id_buyer.length-1]==userID)
+        p.win = true
+        else
+        p.win = false
+  
+    });
 
-  });
+    let products = prod.reverse()
+  
+    if(admin)
+    res.render('mybids',{notAuth,userID,admin,userText,products})
+    else
+    res.redirect('/')
+  
+    })
+  }
+  else
+  {
+    res.redirect('/')
+  }
 
-  res.render('mybids',{notAuth,userID,admin,userText,products})
-
-  })
 })
 
 

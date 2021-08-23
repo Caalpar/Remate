@@ -1,7 +1,7 @@
 <form action="/user/login" method="POST">
-    <input type="text" name="user" placeholder="usuario">
-    <input type="password" name="password" placeholder="contraseña">
-    <input type="submit" value="Iniciar Sesion">
+    <input type="text" name="user" id="user" placeholder="usuario" required>
+    <input type="password" name="password" id="password" placeholder="contraseña" required>
+    <input type="submit" onclick="login()" value="Iniciar Sesion">
     <label for="remember" class="check-content">
         <span>
             Recordar
@@ -9,5 +9,23 @@
         <input type="checkbox" name="remember" id="remember">
         <span class="checkmark"></span>
     </label>
-
 </form>
+
+<script>
+
+    function login() {
+                
+        let user = document.getElementById('user').value
+        let password = document.getElementById('password').value
+        let check = document.getElementById('remember').checked
+
+        if(check) {
+            localStorage.setItem('user',user)
+            localStorage.setItem('password',password)
+        }
+        else
+            localStorage.clear()
+        
+    }
+
+</script>
